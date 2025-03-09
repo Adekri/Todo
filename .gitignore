@@ -1,0 +1,7 @@
+﻿################################################################################
+# Tento soubor .gitignore byl automaticky vytvořen aplikací Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/bin/Debug/net8.0-windows
+/obj
