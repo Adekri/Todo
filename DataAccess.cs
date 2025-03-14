@@ -20,14 +20,6 @@ namespace todo
             return connection.Query<Task>(query).ToList();
         }
 
-        public static List<Task> GetTodoTasks()
-        {
-            using var connection = new SqliteConnection(connectionString);
-            connection.Open();
-
-            var query = "SELECT * FROM Tasks WHERE State='Todo'";
-            return connection.Query<Task>(query).ToList();
-        }
 
         public static void AddTask(string content)
         {

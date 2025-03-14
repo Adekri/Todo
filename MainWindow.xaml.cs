@@ -32,13 +32,14 @@ public partial class MainWindow : Window
 
     private void RenderListView()
     {
+        if (PrimaryList == null)
+        {
+            // Handle the case where PrimaryList is not initialized
+            return;
+        }
         PrimaryList.ItemsSource = DataAccess.GetTasks();
     }
 
-    private void RenderTodoListView()
-    {
-        PrimaryList.ItemsSource = DataAccess.GetTodoTasks();
-    }
 
     private void RenderListView(List<Task>? tasks = null)
     {
@@ -102,7 +103,7 @@ public partial class MainWindow : Window
 
     private void Show_Event(object sender, RoutedEventArgs e)
     {
-        var selectedState = ShowComboBox.SelectedItem.ToString();
+        var selectedState = (ShowComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
         if (selectedState == "All")
         {
@@ -110,7 +111,8 @@ public partial class MainWindow : Window
         }
         else if(selectedState == "Todo")
         {
-            RenderTodoListView();
+            var tasks = DataAccess.GetTasks().Where(t => t.State == selectedState).ToList();
+            RenderListView(tasks);
         }
         else if (selectedState == "Done")
         {
