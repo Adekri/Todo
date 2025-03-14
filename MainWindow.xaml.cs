@@ -77,11 +77,33 @@ public partial class MainWindow : Window
             return;
         }
 
+        // Get the due date from the DatePicker
+        DateTime? dueDate = DueDatePicker.SelectedDate;
+
+        // Get the selected hour and minute
+        if (HourComboBox.SelectedItem is ComboBoxItem hourItem && MinuteComboBox.SelectedItem is ComboBoxItem minuteItem)
+        {
+            int hour = int.Parse(hourItem.Content.ToString());
+            int minute = int.Parse(minuteItem.Content.ToString());
+
+            // Combine date and time
+            if (dueDate.HasValue)
+            {
+                dueDate = new DateTime(dueDate.Value.Year, dueDate.Value.Month, dueDate.Value.Day, hour, minute, 0);
+            }
+        }
+
+        // Check if the due date is in the past
+        if (dueDate.HasValue && dueDate.Value < DateTime.Now)
+        {
+            MessageBox.Show("Due date cannot be in the past.");
+            return;
+        }
 
         ClearForm();
 
         // Add Task to tasks table in database
-        DataAccess.AddTask(content);
+        DataAccess.AddTask(content, dueDate);
 
         RenderListView();
     }

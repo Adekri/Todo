@@ -34,13 +34,13 @@ namespace todo
         }
 
 
-        public static void AddTask(string content)
+        public static void AddTask(string content, DateTime? dueDate)
         {
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 
-            var query = "INSERT INTO Tasks (Content) VALUES (@Content)";
-            connection.Execute(query, new { Content = content});
+            var query = "INSERT INTO Tasks (Content, DueDate) VALUES (@Content, @DueDate)";
+            connection.Execute(query, new { Content = content, DueDate = dueDate });
         }
 
         public static void DeleteTask(int id)

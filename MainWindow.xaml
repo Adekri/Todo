@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:todo"
         mc:Ignorable="d"
-        Title="Todo List" Height="450" Width="600"
+        Title="Todo List" Height="450" Width="743"
         ResizeMode="CanMinimize" Background="#F0F0F0">
     <StackPanel Margin="10">
 
@@ -33,6 +33,7 @@
                             <GridViewColumn Header="Id" Width="35" DisplayMemberBinding="{Binding Id}"/>
                             <GridViewColumn Header="Task" Width="220" DisplayMemberBinding="{Binding Content}"/>
                             <GridViewColumn Header="Date of creation" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                            <GridViewColumn Header="Due to date" Width="150" DisplayMemberBinding="{Binding DueDate}"/>
                             <GridViewColumn Header="State" Width="150" DisplayMemberBinding="{Binding State}"/>
                         </GridView>
                     </ListView.View>
@@ -48,11 +49,105 @@
         </GroupBox>
 
         <!--Add Task-->
-        <GroupBox Header="Add Task" Background="#FFFFFF" BorderBrush="#CCCCCC" BorderThickness="1">
+        <GroupBox Header="Add Task">
             <StackPanel Margin="5">
-                <DockPanel Height="30">
-                    <TextBox x:Name="AddInput" Width="435" HorizontalAlignment="Left" Padding="5" VerticalContentAlignment="Center" Margin="0,0,5,0" Background="#F9F9F9" BorderBrush="#CCCCCC" BorderThickness="1"/>
-                    <Button x:Name="AddBtn" Width="100" HorizontalAlignment="Right" Content="Add" Click="AddBtn_Click" Background="#FF2196F3" Foreground="White" FontWeight="Bold"/>
+                <DockPanel Height="26">
+                    <TextBox x:Name="AddInput" Width="300" HorizontalAlignment="Left" Padding="3,0,0,0" VerticalContentAlignment="Center"/>
+                    <DatePicker x:Name="DueDatePicker" Width="120" Margin="10,0,0,0" VerticalAlignment="Center"/>
+
+                    <!-- ComboBox for hours -->
+                    <ComboBox x:Name="HourComboBox" Width="60" Margin="5,0,0,0" VerticalAlignment="Center">
+                        <ComboBoxItem Content="00"/>
+                        <ComboBoxItem Content="01"/>
+                        <ComboBoxItem Content="02"/>
+                        <ComboBoxItem Content="03"/>
+                        <ComboBoxItem Content="04"/>
+                        <ComboBoxItem Content="05"/>
+                        <ComboBoxItem Content="06"/>
+                        <ComboBoxItem Content="07"/>
+                        <ComboBoxItem Content="08"/>
+                        <ComboBoxItem Content="09"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="11"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="13"/>
+                        <ComboBoxItem Content="14"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="17"/>
+                        <ComboBoxItem Content="18"/>
+                        <ComboBoxItem Content="19"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="21"/>
+                        <ComboBoxItem Content="22"/>
+                        <ComboBoxItem Content="23"/>
+                    </ComboBox>
+
+                    <!-- ComboBox for minutes -->
+                    <ComboBox x:Name="MinuteComboBox" Width="60" Margin="5,0,0,0" VerticalAlignment="Center">
+                        <ComboBoxItem Content="00"/>
+                        <ComboBoxItem Content="01"/>
+                        <ComboBoxItem Content="02"/>
+                        <ComboBoxItem Content="03"/>
+                        <ComboBoxItem Content="04"/>
+                        <ComboBoxItem Content="05"/>
+                        <ComboBoxItem Content="06"/>
+                        <ComboBoxItem Content="07"/>
+                        <ComboBoxItem Content="08"/>
+                        <ComboBoxItem Content="09"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="11"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="13"/>
+                        <ComboBoxItem Content="14"/>
+                        <ComboBoxItem Content="15"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="17"/>
+                        <ComboBoxItem Content="18"/>
+                        <ComboBoxItem Content="19"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="21"/>
+                        <ComboBoxItem Content="22"/>
+                        <ComboBoxItem Content="23"/>
+                        <ComboBoxItem Content="24"/>
+                        <ComboBoxItem Content="25"/>
+                        <ComboBoxItem Content="26"/>
+                        <ComboBoxItem Content="27"/>
+                        <ComboBoxItem Content="28"/>
+                        <ComboBoxItem Content="29"/>
+                        <ComboBoxItem Content="30"/>
+                        <ComboBoxItem Content="31"/>
+                        <ComboBoxItem Content="32"/>
+                        <ComboBoxItem Content="33"/>
+                        <ComboBoxItem Content="34"/>
+                        <ComboBoxItem Content="35"/>
+                        <ComboBoxItem Content="36"/>
+                        <ComboBoxItem Content="37"/>
+                        <ComboBoxItem Content="38"/>
+                        <ComboBoxItem Content="39"/>
+                        <ComboBoxItem Content="40"/>
+                        <ComboBoxItem Content="41"/>
+                        <ComboBoxItem Content="42"/>
+                        <ComboBoxItem Content="43"/>
+                        <ComboBoxItem Content="44"/>
+                        <ComboBoxItem Content="45"/>
+                        <ComboBoxItem Content="46"/>
+                        <ComboBoxItem Content="47"/>
+                        <ComboBoxItem Content="48"/>
+                        <ComboBoxItem Content="49"/>
+                        <ComboBoxItem Content="50"/>
+                        <ComboBoxItem Content="51"/>
+                        <ComboBoxItem Content="52"/>
+                        <ComboBoxItem Content="53"/>
+                        <ComboBoxItem Content="54"/>
+                        <ComboBoxItem Content="55"/>
+                        <ComboBoxItem Content="56"/>
+                        <ComboBoxItem Content="57"/>
+                        <ComboBoxItem Content="58"/>
+                        <ComboBoxItem Content="59"/>
+                    </ComboBox>
+
+                    <Button x:Name="AddBtn" Width="100" HorizontalAlignment="Right" Content="Add" Click="AddBtn_Click"/>
                 </DockPanel>
             </StackPanel>
         </GroupBox>

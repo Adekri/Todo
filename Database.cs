@@ -32,7 +32,9 @@ namespace todo
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Content TEXT NOT NULL,
                         State TEXT DEFAULT 'Todo',
-                        Date DATETIME DEFAULT CURRENT_TIMESTAMP
+                        Date DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        DueDate DATETIME
+
                     )";
 
                 using (var command = new SqliteCommand(createTableSql, connection))

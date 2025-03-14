@@ -13,7 +13,10 @@ namespace todo
         public string? Content { get; set; }
         public string? State { get; set; }
         public DateTime Date { get; set; }
+        public DateTime DueDate { get; set; }
+
+
     }
-    
+
 
 }
