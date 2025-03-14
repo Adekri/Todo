@@ -15,8 +15,6 @@ namespace todo
             var projectDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\"));
             var databasePath = Path.Combine(projectDirectory, "todo.db");
 
-            // Zobrazit cestu k databázovému souboru
-            MessageBox.Show($"Database path: {databasePath}");
 
             return databasePath;
         }
