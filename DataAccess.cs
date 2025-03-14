@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Dapper;
 using System.Linq;
 using Microsoft.Data.Sqlite;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace todo
 {
@@ -24,8 +25,8 @@ namespace todo
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 
-            var query = "INSERT INTO Tasks (Content, Priority) VALUES (@Content, @Priority)";
-            connection.Execute(query, new { Content = content });
+            var query = "INSERT INTO Tasks (Content) VALUES (@Content)";
+            connection.Execute(query, new { Content = content});
         }
 
         public static void DeleteTask(int id)

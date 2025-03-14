@@ -17,7 +17,7 @@ namespace todo
                     CREATE TABLE IF NOT EXISTS Tasks (
                         Id INTEGER PRIMARY KEY AUTOINCREMENT,
                         Content TEXT NOT NULL,
-                        Priority TEXT,
+                        State TEXT DEFAULT 'todo',
                         Date DATETIME DEFAULT CURRENT_TIMESTAMP
                     )";
 
