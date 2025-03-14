@@ -5,58 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:todo"
         mc:Ignorable="d"
-        Title="todo" Height="406" Width="600"
-        ResizeMode="CanMinimize">
+        Title="Todo List" Height="450" Width="600"
+        ResizeMode="CanMinimize" Background="#F0F0F0">
     <StackPanel Margin="10">
 
         <!--ListView-->
-        <GroupBox Header="Tasks"
-                  Height="300">
+        <GroupBox Header="Tasks" Margin="0,0,0,10" Background="#FFFFFF" BorderBrush="#CCCCCC" BorderThickness="1">
             <StackPanel>
-                <DockPanel Height="26"
-                           Margin="0,0,0,5">
-                    <Label Content="Show:"/>
-                    <ComboBox Name="ShowComboBox"
-                              Width="100"
-                              HorizontalAlignment="Left"
-                              SelectedIndex="0"
-                              VerticalContentAlignment="Center"
-                              Margin="5,0,0,0"
-                              SelectionChanged="Show_Event">
+                <DockPanel Height="30" Margin="0,0,0,5">
+                    <Label Content="Show:" VerticalAlignment="Center" Margin="5,0"/>
+                    <ComboBox Name="ShowComboBox" Width="100" HorizontalAlignment="Left" SelectedIndex="0" VerticalContentAlignment="Center" Margin="5,0,0,0" SelectionChanged="Show_Event">
                         <ComboBoxItem Content="All"/>
                         <ComboBoxItem Content="Todo"/>
                         <ComboBoxItem Content="Done"/>
                     </ComboBox>
 
-                    <DockPanel Margin="10,0,0,0" Width="396">
-                        <Button x:Name="DeleteAllBtn"
-                            Width="150"
-                            HorizontalAlignment="Right"
-                            Content="Delete all done"/>
-                    </DockPanel>
+                    <Button x:Name="DeleteAllBtn" Width="150" HorizontalAlignment="Right" Content="Delete all done" Margin="10,0,0,0" Background="#FF4CAF50" Foreground="White" FontWeight="Bold" Click="DeleteAllBtn_Click"/>
                 </DockPanel>
-
-                <ListView x:Name="PrimaryList"
-                          VerticalAlignment="Top"
-                          Margin="5"
-                          Height="235">
+                <ListView x:Name="PrimaryList" Height="235" Background="White" BorderBrush="#CCCCCC" BorderThickness="1">
+                    <ListView.Resources>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <EventSetter Event="Control.MouseDoubleClick" Handler="ListViewItem_MouseDoubleClick"/>
+                        </Style>
+                    </ListView.Resources>
                     <ListView.View>
                         <GridView>
-                            <GridView.Columns>
-                                <GridViewColumn Header="Id"
-                                Width="35"
-                                DisplayMemberBinding="{ Binding Id }"/>
-                                <GridViewColumn Header="Task"
-                                Width="220"
-                                DisplayMemberBinding="{ Binding Content }"/>
-                                <GridViewColumn Header="Date of creation"
-                                Width="150"
-                                DisplayMemberBinding="{ Binding Date }"/>
-                                <GridViewColumn Header="State"
-                                Width="150"
-                                DisplayMemberBinding="{ Binding State }"
-                                                />
-                            </GridView.Columns>
+                            <GridViewColumn Header="Id" Width="35" DisplayMemberBinding="{Binding Id}"/>
+                            <GridViewColumn Header="Task" Width="220" DisplayMemberBinding="{Binding Content}"/>
+                            <GridViewColumn Header="Date of creation" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                            <GridViewColumn Header="State" Width="150" DisplayMemberBinding="{Binding State}"/>
                         </GridView>
                     </ListView.View>
 
@@ -66,33 +43,16 @@
                             <MenuItem Header="Označit jako Done" Click="MarkAsDone_Click"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
-
-                    <!-- Add event handler to ListViewItem -->
-                    <ListView.Resources>
-                        <Style TargetType="ListViewItem">
-                            <EventSetter Event="MouseDoubleClick"
-                         Handler="ListViewItem_MouseDoubleClick"/>
-                          
-                        </Style>
-                    </ListView.Resources>
                 </ListView>
             </StackPanel>
         </GroupBox>
 
         <!--Add Task-->
-        <GroupBox Header="Add Task">
+        <GroupBox Header="Add Task" Background="#FFFFFF" BorderBrush="#CCCCCC" BorderThickness="1">
             <StackPanel Margin="5">
-                <DockPanel Height="26">
-                    <TextBox x:Name="AddInput"
-                             Width="435"
-                             HorizontalAlignment="Left"
-                             Padding="3,0,0,0"
-                             VerticalContentAlignment="Center"/>
-                    <Button x:Name="AddBtn"
-                            Width="100"
-                            HorizontalAlignment="Right"
-                            Content="Add" 
-                            Click="AddBtn_Click"/>
+                <DockPanel Height="30">
+                    <TextBox x:Name="AddInput" Width="435" HorizontalAlignment="Left" Padding="5" VerticalContentAlignment="Center" Margin="0,0,5,0" Background="#F9F9F9" BorderBrush="#CCCCCC" BorderThickness="1"/>
+                    <Button x:Name="AddBtn" Width="100" HorizontalAlignment="Right" Content="Add" Click="AddBtn_Click" Background="#FF2196F3" Foreground="White" FontWeight="Bold"/>
                 </DockPanel>
             </StackPanel>
         </GroupBox>

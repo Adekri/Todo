@@ -142,4 +142,22 @@ public partial class MainWindow : Window
         }
     }
 
+    private void ShowComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
+
+    private void DeleteAllBtn_Click(object sender, RoutedEventArgs e)
+    {
+        // Potvrdenie pred vymazaním
+        var result = MessageBox.Show("Are you sure you want to delete all done tasks?", "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+        if (result == MessageBoxResult.Yes)
+        {
+            DataAccess.DeleteAllDoneTasks();
+            RenderListView(); // Obnoviť zobrazenie zoznamu
+            MessageBox.Show("All done tasks have been deleted!");
+        }
+    }
+
 }

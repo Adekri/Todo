@@ -60,5 +60,14 @@ namespace todo
             var query = "UPDATE Tasks SET State = @State WHERE Id = @Id";
             connection.Execute(query, new { State = state, Id = id });
         }
+
+        public static void DeleteAllDoneTasks()
+        {
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            var query = "DELETE FROM Tasks WHERE State = @State";
+            connection.Execute(query, new { State = "Done" });
+        }
     }
 }
