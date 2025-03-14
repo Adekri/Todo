@@ -17,10 +17,10 @@ public partial class MainWindow : Window
 {
     public MainWindow()
     {
+        InitializeComponent();
+        var db = new Database();
         try
         {
-            InitializeComponent();
-            var db = new Database();
             db.CreateDatabase(); // Zavolání metody pro vytvoření databáze a tabulky
             RenderListView();
         }
@@ -61,6 +61,7 @@ public partial class MainWindow : Window
     private void ClearForm()
     {
         //sem se pak přidá základní nastavení formuláře
+        RenderListView();
         AddInput.Clear();
 
     }
