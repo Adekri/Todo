@@ -12,20 +12,27 @@ using System.Windows.Shapes;
 
 namespace todo;
 
-/// <summary>
 /// Interaction logic for MainWindow.xaml
-/// </summary>
 public partial class MainWindow : Window
 {
     public MainWindow()
     {
-        InitializeComponent();
-        RenderListView();
+        try
+        {
+            InitializeComponent();
+            var db = new Database();
+            db.CreateDatabase(); // Zavolání metody pro vytvoření databáze a tabulky
+            RenderListView();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"An error occurred: {ex.Message}");
+        }
     }
 
     private void RenderListView()
     {
-        //PrimaryList.ItemsSource = Tasks = DataAccess.GetTasks();
+        PrimaryList.ItemsSource = DataAccess.GetTasks();
     }
 
     private void RenderListView(List<Task>? tasks = null)
@@ -36,9 +43,8 @@ public partial class MainWindow : Window
         PrimaryList.ItemsSource = tasks;
     }
 
-    /// <summary>
+
     /// Clear all input form of MainWindow
-    /// </summary>
     private void ClearForm()
     {
         //sem se pak přidá základní nastavení formuláře
@@ -54,7 +60,6 @@ public partial class MainWindow : Window
         if (string.IsNullOrWhiteSpace(content))
         {
             MessageBox.Show("Input field cannot be empty.");
-
             return;
         }
 
@@ -62,7 +67,7 @@ public partial class MainWindow : Window
         ClearForm();
 
         // Add Task to tasks table in database
-       // DataAccess.AddTask(content);
+        DataAccess.AddTask(content);
 
         RenderListView();
     }
@@ -76,7 +81,7 @@ public partial class MainWindow : Window
             {
                 var id = task.Id;
 
-               // DataAccess.DeleteTask(id);
+                DataAccess.DeleteTask(id);
             }
         }
 
