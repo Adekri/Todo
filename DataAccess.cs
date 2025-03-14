@@ -20,6 +20,15 @@ namespace todo
             return connection.Query<Task>(query).ToList();
         }
 
+        public static List<Task> GetTodoTasks()
+        {
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            var query = "SELECT * FROM Tasks WHERE State='Todo'";
+            return connection.Query<Task>(query).ToList();
+        }
+
         public static void AddTask(string content)
         {
             using var connection = new SqliteConnection(connectionString);
@@ -36,6 +45,15 @@ namespace todo
 
             var query = "DELETE FROM Tasks WHERE Id = @Id";
             connection.Execute(query, new { Id = id });
+        }
+
+        public static void UpdateTaskState(int id, string state)
+        {
+            using var connection = new SqliteConnection(connectionString);
+            connection.Open();
+
+            var query = "UPDATE Tasks SET State = @State WHERE Id = @Id";
+            connection.Execute(query, new { State = state, Id = id });
         }
     }
 }

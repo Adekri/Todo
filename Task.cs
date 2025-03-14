@@ -11,7 +11,7 @@ namespace todo
     {
         public int Id { get; set; }
         public string? Content { get; set; }
-        public string? Priority { get; set; }
+        public string? State { get; set; }
         public DateTime Date { get; set; }
     }
     

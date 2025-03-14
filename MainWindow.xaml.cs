@@ -35,12 +35,24 @@ public partial class MainWindow : Window
         PrimaryList.ItemsSource = DataAccess.GetTasks();
     }
 
+    private void RenderTodoListView()
+    {
+        PrimaryList.ItemsSource = DataAccess.GetTodoTasks();
+    }
+
     private void RenderListView(List<Task>? tasks = null)
     {
-        if (tasks is null)
-            RenderListView();
+        
+            if (PrimaryList == null)
+            {
+                // Handle the case where PrimaryList is not initialized
+                return;
+            }
 
-        PrimaryList.ItemsSource = tasks;
+            if (tasks is null)
+                RenderListView();
+
+            PrimaryList.ItemsSource = tasks;
     }
 
 
@@ -90,7 +102,41 @@ public partial class MainWindow : Window
 
     private void Show_Event(object sender, RoutedEventArgs e)
     {
-        //sem se pak přidá akce na zobrazení těch správných
+        var selectedState = ShowComboBox.SelectedItem.ToString();
+
+        if (selectedState == "All")
+        {
+            RenderListView();
+        }
+        else if(selectedState == "Todo")
+        {
+            RenderTodoListView();
+        }
+        else if (selectedState == "Done")
+        {
+            var tasks = DataAccess.GetTasks().Where(t => t.State == selectedState).ToList();
+            RenderListView(tasks);
+        }
+    }
+
+    private void MarkAsTodo_Click(object sender, RoutedEventArgs e)
+    {
+        if (PrimaryList.SelectedItem is Task selectedTask)
+        {
+            selectedTask.State = "Todo";
+            DataAccess.UpdateTaskState(selectedTask.Id, "Todo");
+            RenderListView();
+        }
+    }
+
+    private void MarkAsDone_Click(object sender, RoutedEventArgs e)
+    {
+        if (PrimaryList.SelectedItem is Task selectedTask)
+        {
+            selectedTask.State = "Done";
+            DataAccess.UpdateTaskState(selectedTask.Id, "Done");
+            RenderListView();
+        }
     }
 
 }

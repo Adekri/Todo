@@ -24,8 +24,8 @@
                               Margin="5,0,0,0"
                               SelectionChanged="Show_Event">
                         <ComboBoxItem Content="All"/>
-                        <ComboBoxItem Content="Only pending"/>
-                        <ComboBoxItem Content="Only done"/>
+                        <ComboBoxItem Content="Todo"/>
+                        <ComboBoxItem Content="Done"/>
                     </ComboBox>
 
                     <DockPanel Margin="10,0,0,0" Width="396">
@@ -54,16 +54,25 @@
                                 DisplayMemberBinding="{ Binding Date }"/>
                                 <GridViewColumn Header="State"
                                 Width="150"
-                                DisplayMemberBinding="{ Binding State }"/>
+                                DisplayMemberBinding="{ Binding State }"
+                                                />
                             </GridView.Columns>
                         </GridView>
                     </ListView.View>
+
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Označit jako Todo" Click="MarkAsTodo_Click"/>
+                            <MenuItem Header="Označit jako Done" Click="MarkAsDone_Click"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
 
                     <!-- Add event handler to ListViewItem -->
                     <ListView.Resources>
                         <Style TargetType="ListViewItem">
                             <EventSetter Event="MouseDoubleClick"
                          Handler="ListViewItem_MouseDoubleClick"/>
+                          
                         </Style>
                     </ListView.Resources>
                 </ListView>
