@@ -182,4 +182,25 @@ public partial class MainWindow : Window
         }
     }
 
+    private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        if (PrimaryList.View is GridView gridView)
+        {
+            // Získejte celkovou šířku ListView
+            var totalWidth = PrimaryList.ActualWidth -27;
+
+
+            // Nastavení pevné šířky pro ostatní sloupce
+            gridView.Columns[0].Width = 35;
+            gridView.Columns[3].Width = 170;
+            gridView.Columns[2].Width = 170;
+            gridView.Columns[4].Width = 70;
+
+            // Zbývající šířka pro sloupec Task
+            var remainingWidth = totalWidth - gridView.Columns[0].Width - gridView.Columns[2].Width - gridView.Columns[3].Width- gridView.Columns[4].Width;
+            gridView.Columns[1].Width = remainingWidth;
+        }
+    }
+
+
 }
