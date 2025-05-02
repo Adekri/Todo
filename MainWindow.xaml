@@ -50,6 +50,7 @@
                         <ContextMenu>
                             <MenuItem Header="Označit jako Todo" Click="MarkAsTodo_Click"/>
                             <MenuItem Header="Označit jako Done" Click="MarkAsDone_Click"/>
+                            <MenuItem Header="Zobrazit text úkolu v novém okně" Click="ShowTaskDetail_Click"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                 </ListView>
@@ -64,6 +65,7 @@
                     <DatePicker x:Name="DueDatePicker" Width="120" Margin="10,0,0,0" VerticalAlignment="Center"/>
 
                     <!-- ComboBox for hours -->
+
                     <ComboBox x:Name="HourComboBox" Width="60" Margin="5,0,0,0" VerticalAlignment="Center">
                         <ComboBoxItem Content="00"/>
                         <ComboBoxItem Content="01"/>

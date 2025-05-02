@@ -1,0 +1,8 @@
+﻿<Window x:Class="todo.TaskDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Task Detail" Height="200" Width="400">
+    <Grid>
+        <TextBlock x:Name="TaskContentTextBlock" TextWrapping="Wrap" Margin="10" FontSize="14"/>
+    </Grid>
+</Window>

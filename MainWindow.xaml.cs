@@ -40,6 +40,7 @@ public partial class MainWindow : Window
     }
 
 
+    // toto se využívá pro zobrazení pouze Todo nebo Done
     private void RenderListView(List<Task>? tasks = null)
     {
         
@@ -79,7 +80,7 @@ public partial class MainWindow : Window
             // Combine date and time
             if (dueDate.HasValue)
             {
-                dueDate = new DateTime(dueDate.Value.Year, dueDate.Value.Month, dueDate.Value.Day, hour, minute, 0);
+                dueDate = new DateTime(dueDate.Value.Year, dueDate.Value.Month, dueDate.Value.Day,hour, minute, 0);
             }
         }
 
@@ -154,10 +155,7 @@ public partial class MainWindow : Window
         }
     }
 
-    private void ShowComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
 
-    }
 
     private void DeleteAllBtn_Click(object sender, RoutedEventArgs e)
     {
@@ -191,6 +189,26 @@ public partial class MainWindow : Window
             gridView.Columns[1].Width = remainingWidth;
         }
     }
+
+    private void ShowTaskDetail_Click(object sender, RoutedEventArgs e)
+    {
+        if (PrimaryList.SelectedItem is Task selectedTask)
+        {
+            // Vytvoření nového okna
+            var detailWindow = new TaskDetailWindow();
+
+            // Nastavení textu úkolu
+            detailWindow.SetTaskContent(selectedTask.Content ?? "Žádný obsah");
+
+            // Zobrazení okna
+            detailWindow.Show();
+        }
+        else
+        {
+            MessageBox.Show("Choose task, which you would like to see in new window.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
 
 
 }
