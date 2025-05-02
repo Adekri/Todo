@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace todo;
 
-/// Interaction logic for MainWindow.xaml
+/// Logika pro hlavní okno aplikace
 public partial class MainWindow : Window
 {
     public MainWindow()
@@ -19,7 +19,7 @@ public partial class MainWindow : Window
         try
         {
             db.CreateDatabase(); // Zavolání metody pro vytvoření databáze a tabulky
-            RenderListView();
+            RenderListView(); // Načtení úkolů do seznamu
         }
         catch (Exception ex)
         {
@@ -37,7 +37,7 @@ public partial class MainWindow : Window
     }
 
 
-    // toto se využívá pro zobrazení pouze Todo nebo Done
+    ///Zobrazení pouze zadaných úkolů (např. Todo / Done)
     private void RenderListView(List<Task>? tasks = null)
     {
         
@@ -47,41 +47,39 @@ public partial class MainWindow : Window
             }
 
             if (tasks is null)
-                RenderListView();
+                RenderListView();// pokud nejsou zadané, zobrazí všechny
 
-            PrimaryList.ItemsSource = tasks;
+        PrimaryList.ItemsSource = tasks;
     }
 
 
-
+    /// Přidání nového úkolu po kliknutí na tlačítko
     private void AddBtn_Click(object sender, RoutedEventArgs e)
     {
-        // Task content
         var content = AddInput.Text.Trim();
-        // Handle empty input
+        // Kontrola prázdného vstupu
         if (string.IsNullOrWhiteSpace(content))
         {
             MessageBox.Show("Input field cannot be empty.");
             return;
         }
 
-        // Get the due date from the DatePicker
+        // Získání data ze vstupního pole
         DateTime? dueDate = DueDatePicker.SelectedDate;
 
-        // Get the selected hour and minute
+        // Získání hodin a minut z ComboBoxů
         if (HourComboBox.SelectedItem is ComboBoxItem hourItem && MinuteComboBox.SelectedItem is ComboBoxItem minuteItem)
         {
             int hour = int.Parse(hourItem.Content.ToString());
             int minute = int.Parse(minuteItem.Content.ToString());
 
-            // Combine date and time
             if (dueDate.HasValue)
-            {
+            {   // Složení celého datumu i s časem
                 dueDate = new DateTime(dueDate.Value.Year, dueDate.Value.Month, dueDate.Value.Day,hour, minute, 0);
             }
         }
 
-        // Check if the due date is in the past
+        // Kontrola, zda datum není v minulosti
         if (dueDate.HasValue && dueDate.Value < DateTime.Now)
         {
             MessageBox.Show("Due date cannot be in the past.");
@@ -89,12 +87,13 @@ public partial class MainWindow : Window
         }
 
 
-        // Add Task to tasks table in database
         DataAccess.AddTask(content, dueDate);
 
-        RenderListView();
-        AddInput.Clear();
+        RenderListView();// Obnovení seznamu
+        AddInput.Clear();// Vymazání vstupního pole
     }
+
+    /// Dvojklik na položku v ListView – odstranění úkolu
 
     private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
@@ -105,12 +104,14 @@ public partial class MainWindow : Window
             {
                 var id = task.Id;
 
-                DataAccess.DeleteTask(id);
+                DataAccess.DeleteTask(id);// Smazání úkolu z DB
             }
         }
 
-        RenderListView();
+        RenderListView();// Aktualizace seznamu
     }
+
+    /// Změna filtru v ComboBoxu (All, Todo, Done)
 
     private void Show_Event(object sender, RoutedEventArgs e)
     {
@@ -118,7 +119,7 @@ public partial class MainWindow : Window
 
         if (selectedState == "All")
         {
-            RenderListView();
+            RenderListView();// Zobrazit vše
         }
         else if(selectedState == "Todo")
         {
@@ -126,12 +127,13 @@ public partial class MainWindow : Window
             RenderListView(tasks);
         }
         else if (selectedState == "Done")
-        {
+        {   // Získání jen úkolů s daným stavem
             var tasks = DataAccess.GetTasks().Where(t => t.State == selectedState).ToList();
             RenderListView(tasks);
         }
     }
 
+    /// Označení úkolu jako "Todo"
     private void MarkAsTodo_Click(object sender, RoutedEventArgs e)
     {
         if (PrimaryList.SelectedItem is Task selectedTask)
@@ -142,6 +144,7 @@ public partial class MainWindow : Window
         }
     }
 
+    /// Označení úkolu jako "Done"
     private void MarkAsDone_Click(object sender, RoutedEventArgs e)
     {
         if (PrimaryList.SelectedItem is Task selectedTask)
@@ -153,6 +156,7 @@ public partial class MainWindow : Window
     }
 
 
+    /// Smazání všech úkolů, které mají stav "Done"
 
     private void DeleteAllBtn_Click(object sender, RoutedEventArgs e)
     {
@@ -161,11 +165,13 @@ public partial class MainWindow : Window
 
         if (result == MessageBoxResult.Yes)
         {
-            DataAccess.DeleteAllDoneTasks();
+            DataAccess.DeleteAllDoneTasks();// Smazání z DB
             RenderListView(); // Obnoviť zobrazenie zoznamu
             MessageBox.Show("All done tasks have been deleted!");
         }
     }
+
+    /// Dynamické přizpůsobení šířky sloupců při změně velikosti okna
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
     {
@@ -181,11 +187,13 @@ public partial class MainWindow : Window
             gridView.Columns[2].Width = 170;
             gridView.Columns[4].Width = 70;
 
-            // Zbývající šířka pro sloupec Task
+            // Dynamická šířka pro sloupec s obsahem úkolu
             var remainingWidth = totalWidth - gridView.Columns[0].Width - gridView.Columns[2].Width - gridView.Columns[3].Width- gridView.Columns[4].Width;
             gridView.Columns[1].Width = remainingWidth;
         }
     }
+
+    /// Zobrazení obsahu úkolu v novém okně
 
     private void ShowTaskDetail_Click(object sender, RoutedEventArgs e)
     {

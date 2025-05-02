@@ -11,9 +11,10 @@ using System.Windows;
 namespace todo
 {
     public class DataAccess
-    {
+    {    // Připojovací řetězec k SQLite databázi
         private static readonly string connectionString = $"Data Source={GetDatabasePath()}";
 
+        /// Vrací cestu k souboru s databází 'todo.db' ve složce projektu
         private static string GetDatabasePath()
         {
             // Získání cesty k adresáři projektu
@@ -24,6 +25,7 @@ namespace todo
             return databasePath;
         }
 
+        /// Získá všechny úkoly z tabulky Tasks
         public static List<Task> GetTasks()
         {
             // using zajistí také zavření spojení
@@ -35,6 +37,7 @@ namespace todo
         }
 
 
+        /// Přidá nový úkol do databáze
 
         public static void AddTask(string content, DateTime? dueDate)
         {
@@ -45,6 +48,8 @@ namespace todo
             connection.Execute(query, new { Content = content, DueDate = dueDate });
         }
 
+        /// Smaže úkol dle jeho ID
+
         public static void DeleteTask(int id)
         {
             using var connection = new SqliteConnection(connectionString);
@@ -54,6 +59,8 @@ namespace todo
             connection.Execute(query, new { Id = id });
         }
 
+        /// Aktualizuje stav úkolu (např. "Todo" / "Done")
+
         public static void UpdateTaskState(int id, string state)
         {
             using var connection = new SqliteConnection(connectionString);
@@ -62,6 +69,8 @@ namespace todo
             var query = "UPDATE Tasks SET State = @State WHERE Id = @Id";
             connection.Execute(query, new { State = state, Id = id });
         }
+
+        /// Smaže všechny úkoly, které mají stav "Done"
 
         public static void DeleteAllDoneTasks()
         {

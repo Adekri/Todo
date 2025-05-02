@@ -48,9 +48,9 @@
 
                     <ListView.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Označit jako Todo" Click="MarkAsTodo_Click"/>
-                            <MenuItem Header="Označit jako Done" Click="MarkAsDone_Click"/>
-                            <MenuItem Header="Zobrazit text úkolu v novém okně" Click="ShowTaskDetail_Click"/>
+                            <MenuItem Header="Mark as Todo" Click="MarkAsTodo_Click"/>
+                            <MenuItem Header="Mark as Done" Click="MarkAsDone_Click"/>
+                            <MenuItem Header="Show task content in new window" Click="ShowTaskDetail_Click"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                 </ListView>
