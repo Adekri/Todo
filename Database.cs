@@ -56,7 +56,6 @@ namespace todo
                 }
                 catch (SqliteException ex) when (ex.SqliteErrorCode == 1)
                 {
-                    // Ignore the error if the column already exists
                 }
             }
         }

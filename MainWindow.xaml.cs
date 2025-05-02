@@ -34,7 +34,6 @@ public partial class MainWindow : Window
     {
         if (PrimaryList == null)
         {
-            // Handle the case where PrimaryList is not initialized
             return;
         }
         PrimaryList.ItemsSource = DataAccess.GetTasks();
@@ -46,7 +45,6 @@ public partial class MainWindow : Window
         
             if (PrimaryList == null)
             {
-                // Handle the case where PrimaryList is not initialized
                 return;
             }
 
@@ -57,14 +55,6 @@ public partial class MainWindow : Window
     }
 
 
-    /// Clear all input form of MainWindow
-    private void ClearForm()
-    {
-        //sem se pak přidá základní nastavení formuláře
-        RenderListView();
-        AddInput.Clear();
-
-    }
 
     private void AddBtn_Click(object sender, RoutedEventArgs e)
     {
@@ -100,12 +90,12 @@ public partial class MainWindow : Window
             return;
         }
 
-        ClearForm();
 
         // Add Task to tasks table in database
         DataAccess.AddTask(content, dueDate);
 
         RenderListView();
+        AddInput.Clear();
     }
 
     private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
