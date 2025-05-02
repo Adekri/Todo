@@ -26,6 +26,7 @@ namespace todo
 
         public static List<Task> GetTasks()
         {
+            // using zajistí také zavření spojení
             using var connection = new SqliteConnection(connectionString);
             connection.Open();
 

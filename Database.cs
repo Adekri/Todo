@@ -33,7 +33,7 @@ namespace todo
                         Content TEXT NOT NULL,
                         State TEXT DEFAULT 'Todo',
                         Date DATETIME DEFAULT CURRENT_TIMESTAMP,
-                        DueDate DATETIME
+                        DueDate DATETIME 
 
                     )";
 

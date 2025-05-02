@@ -5,10 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace todo;
 
@@ -101,7 +98,7 @@ public partial class MainWindow : Window
 
     private void ListViewItem_MouseDoubleClick(object sender, MouseButtonEventArgs e)
     {
-        // Converting sender from object to Task
+
         if (sender is ListViewItem item)
         {
             if (item.Content is Task task)
@@ -174,7 +171,7 @@ public partial class MainWindow : Window
     {
         if (PrimaryList.View is GridView gridView)
         {
-            // Získejte celkovou šířku ListView
+            // Šířka celého ListView
             var totalWidth = PrimaryList.ActualWidth -27;
 
 
